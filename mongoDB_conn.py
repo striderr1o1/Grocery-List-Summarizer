@@ -5,8 +5,8 @@ from jsonfile import StringToJson
 from dotenv import load_dotenv
 import os
 load_dotenv()
-username = os.environ.get("USERNAME")
-password = os.environ.get("PASS")
+username = os.environ.get("MONGO_USERNAME")
+password = os.environ.get("MONGO_PASSWORD")
 uri = f"mongodb+srv://{username}:{password}@grocerylist.3xhw3ou.mongodb.net/?retryWrites=true&w=majority&appName=GroceryList"
 
 # Create a new client and connect to the server

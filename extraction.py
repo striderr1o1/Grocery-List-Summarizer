@@ -17,7 +17,7 @@ def ExtractFromImage(name):
         data=image_bytes,
         mime_type='image/jpeg',
       ),
-      'Extract the information from this image'
+      'Extract the information from this. Alway give information in the form of table. Dont give any other information other than the table.'
     ]
     )
     st.subheader("Extracting Using AI")

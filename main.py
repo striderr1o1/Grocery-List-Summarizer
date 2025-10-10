@@ -33,8 +33,10 @@ if uploaded_file is not None:
         json_data = StringToJson(classified_data)
         st.write(json_data)
         InsertJson(json_data)
+        st.write("Saved To Database!")
         
         
     except Exception as e:
+        print("Exception: :", e)
         st.write("Exception Caught: ", e)
     
