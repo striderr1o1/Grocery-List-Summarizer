@@ -5,8 +5,10 @@ from extraction import extract
 from jsonfile import StringToJson
 from mongoDB_conn import InsertJson
 import streamlit as st
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from pathlib import Path
+from pymongo.errors import PyMongoError
+from json import JSONDecodeError
 import imghdr
 import os
 # Title of the app
@@ -40,8 +42,13 @@ if uploaded_file is not None:
         InsertJson(json_data)
         st.write("Saved To Database!")
         
-        
+    except UnidentifiedImageError:
+        st.error("Error: The uploaded file is not a valid image.")
+    except JSONDecodeError:
+        st.error("Error: Failed to parse the classified data into JSON.")
+    except PyMongoError as e:
+        st.error(f"Database Error: {e}")
     except Exception as e:
         print("Exception: :", e)
-        st.write("Exception Caught: ", e)
+        st.error(f"An unexpected error occurred: {e}")
     
