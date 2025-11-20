@@ -1,3 +1,5 @@
+# Add current date to the JSON data
+from datetime import datetime
 from classify import ClassifyData
 from extraction import extract
 from jsonfile import StringToJson
@@ -31,6 +33,9 @@ if uploaded_file is not None:
         classified_data+="\n"
         st.subheader("Classified Data:")
         json_data = StringToJson(classified_data)
+        
+        json_data["date"] = datetime.now().strftime("%Y-%m-%d")
+        
         st.write(json_data)
         InsertJson(json_data)
         st.write("Saved To Database!")
