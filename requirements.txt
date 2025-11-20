@@ -1,6 +1,6 @@
 pytesseract
 pillow
-python -m pip install "paddleocr[all]"
+pip install "paddleocr[all]"
 pip install paddleocr --upgrade
 pip install paddlepaddle
 pip install -q -U google-genai
