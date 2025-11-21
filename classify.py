@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import time
 
-load_dotenv()
+# load_dotenv()
 client = Groq(api_key=os.environ.get('GROQ_API_KEY'))
 
 class Data(BaseModel):
