@@ -5,5 +5,9 @@ pydantic
 streamlit
 pymongo
 groq
+python-dotenv
+fastapi
+uvicorn
+python-multipart
 dotenv
 uvicorn
