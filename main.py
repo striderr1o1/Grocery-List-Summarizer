@@ -9,7 +9,7 @@ from PIL import Image, UnidentifiedImageError
 from pathlib import Path
 from pymongo.errors import PyMongoError
 from json import JSONDecodeError
-import imghdr
+
 import os
 # Title of the app
 st.title("🖼️ Image Upload Demo")
