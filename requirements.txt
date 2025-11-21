@@ -1,8 +1,5 @@
 pytesseract
 pillow
-paddleocr[all]
-paddleocr
-paddlepaddle
 google-genai
 pydantic
 streamlit
