@@ -6,3 +6,4 @@ streamlit
 pymongo
 groq
 dotenv
+uvicorn
