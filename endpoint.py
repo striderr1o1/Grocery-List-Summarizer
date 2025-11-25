@@ -16,7 +16,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-
+    
 @app.post("/uploadfile")
 def uploadFile(file: UploadFile = File(...)):
     try:
