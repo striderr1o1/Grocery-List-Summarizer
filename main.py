@@ -12,7 +12,7 @@ from json import JSONDecodeError
 
 import os
 # Title of the app
-st.title("🖼️ Image Upload Demo")
+st.title("Upload Grocery List")
 
 # File uploader widget
 uploaded_file = st.file_uploader(
