@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 import dotenv
 import streamlit as st
-# dotenv.load_dotenv()
+dotenv.load_dotenv()
 import re
 name = "WhatsApp Image 2025-09-30 at 7.36.54 PM.jpeg"
 client = genai.Client()
