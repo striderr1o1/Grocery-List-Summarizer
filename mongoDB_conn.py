@@ -5,7 +5,7 @@ from pymongo.errors import PyMongoError, ConnectionFailure
 from jsonfile import StringToJson
 from dotenv import load_dotenv
 import os
-# load_dotenv()
+load_dotenv()
 username = os.environ.get("MONGO_USERNAME")
 password = os.environ.get("MONGO_PASSWORD")
 uri = f"mongodb+srv://{username}:{password}@grocerylist.3xhw3ou.mongodb.net/?retryWrites=true&w=majority&appName=GroceryList"
