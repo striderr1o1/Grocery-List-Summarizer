@@ -1,7 +1,7 @@
 import streamlit as st
 import os
-from pages.uploadlist import uploadPage
-from pages.existingdata import ShowExistingData
+from pagess.uploadlist import uploadPage
+from pagess.existingdata import ShowExistingData
 
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Go to", ["Upload", "Data"])
@@ -12,6 +12,9 @@ if page == "Upload":
 elif page == "Data":
     st.title("Existing Data")
     ShowExistingData()
-    
+
+#add some module that fetches and displays data from mongodb
+
+
 
     
