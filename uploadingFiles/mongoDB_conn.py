@@ -19,11 +19,15 @@ except ConnectionFailure as e:
     print(f"Could not connect to MongoDB: {e}")
     raise
 
-database = client["Grocery"]
-collection = database["items_data"]
+database = client["lists"]
+# collection = database["items_data"]
 
-def InsertJson(json_data):
+def InsertJson(json_data, username):
     try:
+        if(username == "Noman"):
+            collection = database["baba"]
+        else:
+            collection = database["mustafa"]
         collection.insert_one(json_data)
         print("Data inserted successfully.")
     except PyMongoError as e:

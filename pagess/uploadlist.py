@@ -17,7 +17,8 @@ def uploadPage():
         "Upload an image",
         type=["jpg", "jpeg"]
     )
-    
+    #create dropdown
+    username = st.selectbox("Who is using the service?", ("Mustafa", "Noman"))
     # If the user uploads an image
     if uploaded_file is not None:
         # Open it with PIL
@@ -37,7 +38,7 @@ def uploadPage():
             json_data["date"] = datetime.now().strftime("%Y-%m-%d")
             
             st.write(json_data)
-            InsertJson(json_data)
+            InsertJson(json_data, username)
             st.write("Saved To Database!")
             
         except UnidentifiedImageError:
