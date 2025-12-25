@@ -5,6 +5,7 @@ from pymongo.errors import PyMongoError, ConnectionFailure
 # from jsonfile import StringToJson
 from dotenv import load_dotenv
 import os
+from pagess.existingdata import GetCollection
 load_dotenv()
 username = os.environ.get("MONGO_USERNAME")
 password = os.environ.get("MONGO_PASSWORD")
@@ -24,10 +25,7 @@ database = client["lists"]
 
 def InsertJson(json_data, username):
     try:
-        if(username == "Noman"):
-            collection = database["baba"]
-        else:
-            collection = database["mustafa"]
+        collection = GetCollection(username)
         collection.insert_one(json_data)
         print("Data inserted successfully.")
     except PyMongoError as e:

@@ -13,20 +13,29 @@ uri = f"mongodb+srv://{username}:{password}@grocerylist.3xhw3ou.mongodb.net/?ret
 client = MongoClient(uri, server_api=ServerApi('1'))
 database = client["lists"]
 
-
-def ShowExistingData():
-    dataframes = []
-    username = st.selectbox("Who's data do you wish to see?", ("Mustafa", "Noman"))
+def GetCollection(username):
     if(username == "Noman"):
         collection = database["baba"]
     else:
         collection = database["mustafa"]
+    return collection
+
+def ShowExistingData():
+    dataframes = []
+    username = st.selectbox("Who's data do you wish to see?", ("Mustafa", "Noman"))
+    collection = GetCollection(username)
     #adding existing json to dictionary list
     for json in collection.find():
         frame = pd.DataFrame.from_dict(json)
-        dataframes.append(frame)
         frame = frame.drop('_id', axis=1)
+        dataframes.append(frame)
         # st.write(frame["date"])
-        st.write(frame)
-        
+        # st.write(frame)
+    
+    #combine frames
+    if len(dataframes) != 0:
+        combinedFrame = pd.concat(dataframes)
+        st.write(combinedFrame)
+                
     return
+
