@@ -4,6 +4,7 @@ from uploadingFiles.classify import ClassifyData
 from uploadingFiles.extraction import extract
 from uploadingFiles.jsonfile import StringToJson
 from uploadingFiles.mongoDB_conn import InsertJson
+from uploadingFiles.jsonfile import GetTotal
 import streamlit as st
 from PIL import Image, UnidentifiedImageError
 from pymongo.errors import PyMongoError
@@ -36,7 +37,8 @@ def uploadPage():
             json_data = StringToJson(classified_data)
             
             json_data["date"] = datetime.now().strftime("%Y-%m-%d")
-            
+            sum = GetTotal(json_data)
+            json_data["total"] = sum#adding total to json/dict
             st.write(json_data)
             InsertJson(json_data, username)
             st.write("Saved To Database!")

@@ -1,5 +1,13 @@
 import json
 
+def GetTotal(Json):
+    sum = 0
+    for key in Json:
+        if key != "date":#print all the keys that are not date, add the sum to find total
+            sum = sum + Json[key]["sum"]
+            print(Json[key]["sum"])
+    
+    return sum
 
 def StringToJson(json_str: str):
     structured_json = json.loads(json_str)
