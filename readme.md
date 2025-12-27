@@ -141,7 +141,7 @@ This project is currently unlicensed. Please contact the repository owner for us
 
 ## Known Issues
 
-- Duplicate date entries in DataFrame display (currently being addressed)
+- Duplicate date entries in DataFrame display
 - Limited to JPG/JPEG formats only
 - Requires manual user selection (no authentication yet)
 
