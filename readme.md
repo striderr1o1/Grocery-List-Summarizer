@@ -10,7 +10,7 @@ A Python-based smart Streamlit web application that extracts, classifies, and su
 - **🤖 AI-Powered Classification**: Automatically categorizes items into predefined categories using Groq-inference.
 - **💾 MongoDB Integration**: Stores classified grocery data with total and date in the database for two users for the time being(Me and my father).
 - **📊 Data Visualization**: View and analyze historical grocery data in an interactive, wide-layout DataFrame
-- **👥 Multi-User Support**: Separate data tracking for different users (Mustafa & Noman)
+- **👥 Multi-User Support**: Separate data tracking for different users (Me and my father at the moment)
 - **💰 Automatic Total Calculation**: Computes approximate totals for each user
 
 ---
