@@ -12,7 +12,7 @@ if page == "Upload":
 elif page == "Data":
     st.title("Existing Data")
     total = ShowExistingData()
-    st.write("Total: ", total)
+    st.write("Approximate Total: ", total)
 
 #add some module that fetches and displays data from mongodb
 
