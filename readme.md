@@ -79,7 +79,7 @@ Before running this project, ensure you have:
 
 4. **Configure MongoDB**
    
-   Setup your mongodb atlas account and update the connection string in the .env file.
+   Setup your mongodb atlas account and update the connection string in the .env file. Also change the url and the database and collection names in the main.py file according to your needs.
 
 ---
 
