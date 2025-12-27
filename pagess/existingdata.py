@@ -25,7 +25,11 @@ def ShowExistingData():
     username = st.selectbox("Who's data do you wish to see?", ("Mustafa", "Noman"))
     collection = GetCollection(username)
     #adding existing json to dictionary list
+    total = 0 #getting total of each json
     for json in collection.find():
+        total += json["total"]
+        print(json)
+        print("\n")
         frame = pd.DataFrame.from_dict(json)
         frame = frame.drop('_id', axis=1)
         dataframes.append(frame)
@@ -35,7 +39,6 @@ def ShowExistingData():
     #combine frames
     if len(dataframes) != 0:
         combinedFrame = pd.concat(dataframes)
-        st.write(combinedFrame)
+        st.dataframe(combinedFrame)
                 
-    return
-
+    return total
