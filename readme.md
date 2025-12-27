@@ -22,11 +22,11 @@ Grocery-List-Summarizer/
 ├── main.py                    # Main Streamlit application entry point
 ├── pagess/
 │   ├── uploadlist.py         # Upload page logic and image processing
-│   └── existingdata.py       # Data retrieval and display functionality
+│   └── existingdata.py       # Data retrieval and display functionality + some other stuff
 ├── uploadingFiles/
-│   ├── classify.py           # AI-based item classification
-│   ├── extraction.py         # OCR text extraction
-│   ├── jsonfile.py           # JSON parsing and total calculation
+│   ├── classify.py           # Groq-based item classification
+│   ├── extraction.py         # Gemini AI text extraction
+│   ├── jsonfile.py           # JSON related functions
 │   └── mongoDB_conn.py       # MongoDB connection and operations
 ├── requirements.txt          # Python dependencies
 ├── .env                      # Environment variables (MongoDB credentials)
