@@ -1,10 +1,6 @@
 import streamlit as st
 from datetime import datetime
-from uploadingFiles.classify import ClassifyData
-from uploadingFiles.extraction import extract
-from uploadingFiles.jsonfile import StringToJson
-from uploadingFiles.mongoDB_conn import InsertJson
-from uploadingFiles.jsonfile import GetTotal
+from uploadingFiles.ingestion import Ingestion
 import streamlit as st
 from PIL import Image, UnidentifiedImageError
 from pymongo.errors import PyMongoError
@@ -28,19 +24,16 @@ def uploadPage():
             image = Image.open(uploaded_file)
             image.save("./image.jpeg")
             NameOfImage = "image.jpeg"
-            cleaned = extract(NameOfImage)
+            ingestionObj = Ingestion(NameOfImage, username)
+            cleaned = ingestionObj.extract()
             st.subheader("Cleaned Data:")
             st.write(cleaned)
-            classified_data = ClassifyData(cleaned)
+            classified_data = ingestionObj.ClassifyData()
             classified_data+="\n"
             st.subheader("Classified Data:")
-            json_data = StringToJson(classified_data)
-            
-            json_data["date"] = datetime.now().strftime("%Y-%m-%d")
-            sum = GetTotal(json_data)
-            json_data["total"] = sum#adding total to json/dict
+            json_data = ingestionObj.StringToJson()
             st.write(json_data)
-            InsertJson(json_data, username)
+            ingestionObj.save_to_db()
             st.write("Saved To Database!")
             
         except UnidentifiedImageError:
