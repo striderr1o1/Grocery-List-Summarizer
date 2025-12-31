@@ -12,7 +12,7 @@ from pydantic import BaseModel
 import time
 import json
 from datetime import datetime
-from uploadingFiles.mongoDB_conn import MongoDBConnector
+from applogic.mongoDB_conn import MongoDBConnector
 
 load_dotenv()
 clientGemini = genai.Client()

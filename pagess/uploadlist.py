@@ -1,6 +1,6 @@
 import streamlit as st
 from datetime import datetime
-from uploadingFiles.ingestion import Ingestion
+from applogic.ingestion import Ingestion
 import streamlit as st
 from PIL import Image, UnidentifiedImageError
 from pymongo.errors import PyMongoError

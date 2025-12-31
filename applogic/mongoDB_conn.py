@@ -3,7 +3,7 @@ from pymongo.server_api import ServerApi
 from pymongo.errors import PyMongoError, ConnectionFailure
 from dotenv import load_dotenv
 import os
-from pagess.existingdata import GetCollection
+
 
 class MongoDBConnector:
     def __init__(self):
@@ -33,3 +33,14 @@ class MongoDBConnector:
         except PyMongoError as e:
             print(f"Error inserting data into MongoDB: {e}")
             raise e
+
+    def _GetCollection(self, username):
+        if(username == "Noman"):
+            collection = self.database["baba"]
+        else:
+            collection = self.database["mustafa"]
+        return collection
+
+    def fetch_collection(self, username):
+        collection = self._GetCollection(username)
+        return collection
