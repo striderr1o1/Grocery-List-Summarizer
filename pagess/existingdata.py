@@ -19,6 +19,11 @@ def ShowExistingData():
         print("\n")
         frame = pd.DataFrame.from_dict(json)
         frame = frame.drop('_id', axis=1)
+        frame["date"] = pd.to_datetime(frame["date"], format='%Y-%m-%d')
+        frame.sort_values(by="date", inplace=True)
+        frame["month"] = frame["date"].dt.month_name()
+
+        
         dataframes.append(frame)
         # st.write(frame["date"])
         # st.write(frame)
@@ -26,6 +31,8 @@ def ShowExistingData():
     #combine frames
     if len(dataframes) != 0:
         combinedFrame = pd.concat(dataframes)
+        # combinedFrame["date"] = pd.to_datetime(combinedFrame["date"], format='%Y-%m-%d').dt.date
+        # combinedFrame.sort_values(by="date", inplace=True)
         st.dataframe(combinedFrame)
-                
+
     return total
