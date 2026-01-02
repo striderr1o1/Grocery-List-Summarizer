@@ -27,7 +27,7 @@ class MongoDBConnector:
 
     def insert_json(self, json_data, username):
         try:
-            collection = GetCollection(username)
+            collection = self._GetCollection(username)
             collection.insert_one(json_data)
             print("Data inserted successfully.")
         except PyMongoError as e:
@@ -44,3 +44,7 @@ class MongoDBConnector:
     def fetch_collection(self, username):
         collection = self._GetCollection(username)
         return collection
+    
+    def get_json_from_collection(self, collection):
+        json = collection.find()
+        return json
