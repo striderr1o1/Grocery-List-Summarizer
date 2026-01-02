@@ -16,6 +16,11 @@ def ShowExistingData():
     #adding existing json to dictionary list
     total = 0 #getting total of each json
     fetched_json = connector.get_json_from_collection(collection)
+    # gets jsons from the collection in the form of a list from this function above
+    # for each json, creates a dataframe, gets the date, gets the month, adds a month column
+    # checks the month selectbox value against the value of the month in the current frane
+    # if user has selected all, sums the totals of all the jsons
+    # if user has selected a specific month, sums the totals of only those months' json
     for json in fetched_json:
         print(json)
         print("\n")
@@ -36,7 +41,7 @@ def ShowExistingData():
         if(selectedmonth == "all"):   
             st.dataframe(combinedFrame)
         else:
-            combinedFrame = combinedFrame[combinedFrame["month"] == selectedmonth]
+            combinedFrame = combinedFrame[combinedFrame["month"] == selectedmonth]# adds the filtering condition
             st.dataframe(combinedFrame)
 
     return total
