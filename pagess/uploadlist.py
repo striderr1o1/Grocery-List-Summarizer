@@ -6,6 +6,24 @@ from PIL import Image, UnidentifiedImageError
 from pymongo.errors import PyMongoError
 from json import JSONDecodeError
 
+def Image_Processing(uploaded_file, username):
+    st.write("Loading:")
+    image = Image.open(uploaded_file)
+    image.save("./image.jpeg")
+    NameOfImage = "image.jpeg"
+    ingestionObj = Ingestion(NameOfImage, username)
+    cleaned = ingestionObj.extract()
+    st.subheader("Cleaned Data:")
+    st.write(cleaned)
+    classified_data = ingestionObj.ClassifyData()
+    classified_data+="\n"
+    st.subheader("Classified Data:")
+    json_data = ingestionObj.StringToJson()
+    st.write(json_data)
+    ingestionObj.save_to_db()
+    st.write("Saved To Database!")
+
+
 def uploadPage():
     st.title("Upload Grocery List")
 
@@ -20,21 +38,7 @@ def uploadPage():
     if uploaded_file is not None:
         # Open it with PIL
         try:
-            st.write("Loading:")
-            image = Image.open(uploaded_file)
-            image.save("./image.jpeg")
-            NameOfImage = "image.jpeg"
-            ingestionObj = Ingestion(NameOfImage, username)
-            cleaned = ingestionObj.extract()
-            st.subheader("Cleaned Data:")
-            st.write(cleaned)
-            classified_data = ingestionObj.ClassifyData()
-            classified_data+="\n"
-            st.subheader("Classified Data:")
-            json_data = ingestionObj.StringToJson()
-            st.write(json_data)
-            ingestionObj.save_to_db()
-            st.write("Saved To Database!")
+            Image_Processing(uploaded_file, username)
             
         except UnidentifiedImageError:
             st.error("Error: The uploaded file is not a valid image.")
