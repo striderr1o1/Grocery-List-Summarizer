@@ -13,6 +13,7 @@ class MongoDBConnector:
         self.uri = f"mongodb+srv://{self.username}:{self.password}@grocerylist.3xhw3ou.mongodb.net/?retryWrites=true&w=majority&appName=GroceryList"
         self.client = None
         self.database = None
+        self.authDatabase = None
         self._connect()
 
     def _connect(self):
@@ -24,6 +25,15 @@ class MongoDBConnector:
         except ConnectionFailure as e:
             print(f"Could not connect to MongoDB: {e}")
             raise
+    
+    def connectToAuthDatabase(self):
+        try:
+            self.client = MongoClient(self.uri, server_api=ServerApi('1'))
+            self.authDatabase = self.client["auth"]
+        except ConnectionFailure as e:
+            print(f"Could not connect to MongoDB Auth Database: {e}")
+            raise
+            
 
     def insert_json(self, json_data, username):
         try:
@@ -47,4 +57,12 @@ class MongoDBConnector:
     
     def get_json_from_collection(self, collection):
         json = collection.find()
+        print(json)
         return json
+    
+    def get_users(self):
+        collection = self.authDatabase["username_passwords"]
+        users = collection.find()
+        #need to get users from the database for authentication
+        return users
+        
