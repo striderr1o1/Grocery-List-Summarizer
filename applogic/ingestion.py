@@ -40,7 +40,8 @@ class Ingestion:
     classified_data = ""
     TotalSum = ""
     Json = {}
-    def __init__(self, filename, username):
+    db = None
+    def __init__(self, filename, username, dbase):
         self.filename = filename
         self.extractedText = ""
         self.clean_list = ""
@@ -48,6 +49,7 @@ class Ingestion:
         self.Json = {}
         self.TotalSum = ""
         self.username = username
+        self.db = dbase
         return
     
     def _ExtractFromImage(self):
@@ -142,5 +144,7 @@ class Ingestion:
         return self.Json
 
     def save_to_db(self):
-        connector = MongoDBConnector()
-        connector.insert_json(self.Json, self.username)
+        if self.db is not None:
+            self.db.insert_json(self.Json, self.username)
+        else:
+            print("None obj, save_to_db in ingestion.py")

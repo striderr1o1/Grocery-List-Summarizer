@@ -29,7 +29,7 @@ class MongoDBConnector:
     def connectToAuthDatabase(self):
         try:
             self.client = MongoClient(self.uri, server_api=ServerApi('1'))
-            self.authDatabase = self.client["auth"]
+            self.authDatabase = self.client["authentication"]
         except ConnectionFailure as e:
             print(f"Could not connect to MongoDB Auth Database: {e}")
             raise
@@ -60,9 +60,9 @@ class MongoDBConnector:
         print(json)
         return json
     
-    def get_users(self):
+    def get_user(self, username):
         collection = self.authDatabase["username_passwords"]
-        users = collection.find()
+        users = collection.find({"username": username})
         #need to get users from the database for authentication
         return users
         
