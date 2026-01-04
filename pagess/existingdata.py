@@ -11,10 +11,10 @@ load_dotenv()
 connector = MongoDBConnector()
 class ExistingPageClass:
     mdb_connector = None
-    
-    def __init__(self, connector_to_mdb):
+    username = ""
+    def __init__(self, connector_to_mdb, username):
         self.mdb_connector = connector_to_mdb
-    
+        self.username = username
     def get_user_selection(self):
         """
         Handles the UI for selecting the user and filtering criteria.
@@ -22,7 +22,8 @@ class ExistingPageClass:
         Returns:
             tuple: (username, selected_month)
         """
-        username = st.selectbox("Who's data do you wish to see?", ("Mustafa", "Noman"))
+        # username = st.selectbox("Who's data do you wish to see?", ("Mustafa", "Noman"))
+        username = self.username
         month_options = ["all", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         selected_month = st.selectbox("filter by month", month_options)
         return username, selected_month

@@ -8,8 +8,8 @@ def require_auth(db_connector):
         return  # user already logged in
     st.title("Authentication")
 
-    # db_connector.connectToAuthDatabase()
-    authobj = authentication(db_connector.getAuthenticationDatabase())
+    db_connector.connectToAuthDatabase()
+    authobj = authentication(db_connector)
 
     option = st.selectbox("Login or Sign-up", ["Login", "Sign-up"])
     if option == "Login":
@@ -67,4 +67,4 @@ def signup(authobj):
         else:
             authobj.create_user(username, password)
             st.success("Account created. Please login.")
-            login(authobj)
+            

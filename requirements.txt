@@ -9,4 +9,5 @@ uvicorn
 python-multipart
 dotenv
 streamlit-authenticator
+passlib
 

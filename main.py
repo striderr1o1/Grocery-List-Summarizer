@@ -16,12 +16,12 @@ page = st.sidebar.selectbox("Go to", ["Upload", "Data"])
 if page == "Upload":
     if(st.session_state["auth"]==False):
         require_auth(database_connector)
-    list_Processing_page = ListProcessingPage(database_connector)
+    list_Processing_page = ListProcessingPage(database_connector, st.session_state.user["username"])
 
 elif page == "Data":
     if(st.session_state["auth"]==False):
         require_auth(database_connector)
     st.title("Existing Data")
-    existingpage = ExistingPageClass(database_connector)
+    existingpage = ExistingPageClass(database_connector, st.session_state.user["username"])
     total = existingpage.ShowExistingData()
     st.write("Approximate Total: ", total)

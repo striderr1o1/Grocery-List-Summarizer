@@ -12,6 +12,7 @@ class MongoDBConnector:
         self.password = os.environ.get("MONGO_PASSWORD")
         self.uri = f"mongodb+srv://{self.username}:{self.password}@grocerylist.3xhw3ou.mongodb.net/?retryWrites=true&w=majority&appName=GroceryList"
         self.client = None
+        self.client2 = None
         self.database = None
         self.authDatabase = None
         self._connect()
@@ -28,8 +29,8 @@ class MongoDBConnector:
     
     def connectToAuthDatabase(self):
         try:
-            # self.authclient = MongoClient(self.uri, server_api=ServerApi('1'))
-            self.authDatabase = self.client["authentication"]
+            self.client2 = MongoClient(self.uri, server_api=ServerApi('1'))
+            self.authDatabase = self.client2["authentication"]
         except ConnectionFailure as e:
             print(f"Could not connect to MongoDB Auth Database: {e}")
             raise
@@ -45,11 +46,23 @@ class MongoDBConnector:
             raise e
 
     def _GetCollection(self, username):
-        if(username == "Noman"):
-            collection = self.database["baba"]
-        else:
-            collection = self.database["mustafa"]
-        return collection
+        check_exists = False
+        collection_names = self.database.list_collection_names()
+        for name in collection_names:
+            if(name == username):
+                check_exists = True
+        if check_exists == True:
+            collection = self.database[username]
+            return collection
+        try:
+            self.database.create_collection(username, capped=True, size=10485760)
+            print(f"Capped collection '{username}' created successfully.")
+            collection = self.database[username]
+            return collection
+        except pymongo.errors.CollectionInvalid as e:
+            print(f"Collection already exists or other error: {e}")
+
+        
 
     def fetch_collection(self, username):
         collection = self._GetCollection(username)

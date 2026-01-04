@@ -11,10 +11,10 @@ class ListProcessingPage:
     ingestionObj = None
     username = ""
     db_connector = None
-    def __init__(self, dbconnector):
+    def __init__(self, dbconnector, username):
         self.db_connector = dbconnector
+        self.username = username
         self.uploadPage()
-        
         
 
     def Image_Processing(self):
@@ -36,6 +36,7 @@ class ListProcessingPage:
     
     
     def uploadPage(self):
+        st.write(f"Welcome, {self.username}")
         st.title("Upload Grocery List")
     
         # File uploader widget
@@ -44,7 +45,7 @@ class ListProcessingPage:
             type=["jpg", "jpeg"]
         )
         #create dropdown
-        self.username = st.selectbox("Who is using the service?", ("Mustafa", "Noman"))
+        # self.username = st.session_state["username"]
         # If the user uploads an image
         if self.uploaded_file is not None:
             # Open it with PIL
