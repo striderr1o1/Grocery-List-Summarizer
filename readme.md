@@ -10,7 +10,7 @@ A Python-based smart Streamlit web application that extracts, classifies, and su
 - **🤖 AI-Powered Classification**: Automatically categorizes items into predefined categories using Groq-inference.
 - **💾 MongoDB Integration**: Stores classified grocery data with total and date in the database for two users for the time being(Me and my father).
 - **📊 Data Visualization**: View and analyze historical grocery data in an interactive, wide-layout DataFrame
-- **👥 Multi-User Support**: Separate data tracking for different users (Me and my father at the moment)
+- **👥 Multi-User Support**: Separate data tracking for different users
 - **💰 Automatic Total Calculation**: Computes approximate totals for each user
 
 ---
@@ -20,17 +20,18 @@ A Python-based smart Streamlit web application that extracts, classifies, and su
 ```
 Grocery-List-Summarizer/
 ├── main.py                    # Main Streamlit application entry point
-├── pagess/
-│   ├── uploadlist.py         # Upload page logic and image processing
-│   └── existingdata.py       # Data retrieval and display functionality + some other stuff
-├── uploadingFiles/
-│   ├── classify.py           # Groq-based item classification
-│   ├── extraction.py         # Gemini AI text extraction
-│   ├── jsonfile.py           # JSON related functions
-│   └── mongoDB_conn.py       # MongoDB connection and operations
-├── requirements.txt          # Python dependencies
-├── .env                      # Environment variables (MongoDB credentials)
-└── sample.json              # Sample data format
+├── applogic/                  # Core application logic
+│   ├── auth.py               # Authentication utility functions
+│   ├── ingestion.py          # Handles image extraction (Gemini), classification (Groq), and data structuring
+│   ├── mongoDB_conn.py       # MongoDB connection wrapper
+│   └── processor.py          # Data processing and DataFrame manipulation for visualization
+├── pagess/                    # Streamlit pages
+│   ├── authpage.py           # User authentication interface
+│   ├── uploadlist.py         # Grocery list upload and processing interface
+│   └── existingdata.py       # Dashboard for viewing historical data
+├── requirements.txt           # Python dependencies
+├── .env                       # Environment variables
+└── sample.json               # Sample data format
 ```
 
 ---
