@@ -9,6 +9,9 @@ from pagess.authpage import require_auth
 database_connector = MongoDBConnector()
 st.session_state["auth"] = False
 st.set_page_config(layout="wide")
+# so that it shows the login page before adding other parts of the page
+if(st.session_state["auth"]==False):
+        require_auth(database_connector)
 
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Go to", ["Upload", "Data"])

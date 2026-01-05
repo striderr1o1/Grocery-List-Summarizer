@@ -5,7 +5,7 @@ import streamlit as st
 from PIL import Image, UnidentifiedImageError
 from pymongo.errors import PyMongoError
 from json import JSONDecodeError
-
+import pandas as pd
 class ListProcessingPage:
     uploaded_file = None
     ingestionObj = None
@@ -24,16 +24,21 @@ class ListProcessingPage:
         NameOfImage = "image.jpeg"
         self.ingestionObj = Ingestion(NameOfImage, self.username, self.db_connector)
         cleaned = self.ingestionObj.extract()
+        df = self._converting_json_to_df(cleaned)
         st.subheader("Cleaned Data:")
-        st.write(cleaned)
+        st.dataframe(df)
         classified_data = self.ingestionObj.ClassifyData()
         classified_data+="\n"
         st.subheader("Classified Data:")
         json_data = self.ingestionObj.StringToJson()
-        st.write(json_data)
+        df_classified = self._converting_json_to_df(json_data)
+        st.dataframe(df_classified)
         self.ingestionObj.save_to_db()
         st.write("Saved To Database!")
     
+    def _converting_json_to_df(self, Json):
+        json_df = pd.DataFrame.from_dict(Json)
+        return json_df
     
     def uploadPage(self):
         st.write(f"Welcome, {self.username}")
