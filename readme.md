@@ -49,7 +49,7 @@ Grocery-List-Summarizer/
 
 Before running this project, ensure you have:
 
-- MongoDB Atlas account (or local MongoDB instance)
+- MongoDB Atlas account
 - Google AI API key (for Generative AI)
 - Groq API key (for AI-powered categorization)
 
