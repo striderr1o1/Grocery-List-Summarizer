@@ -13,7 +13,7 @@ st.set_page_config(layout="wide")
 if(st.session_state["auth"]==False):
         require_auth(database_connector)
 
-st.sidebar.title("Navigation")
+st.sidebar.title("Navigation") #writing using vi 
 page = st.sidebar.selectbox("Go to", ["Upload", "Data"])
 
 if page == "Upload":

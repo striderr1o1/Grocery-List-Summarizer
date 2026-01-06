@@ -41,7 +41,7 @@ class authentication:
         database = self.auth_database_connector.client2["authentication"]
         collection = database["username_passwords"]
         resp = collection.find_one({"username": username})
-        if resp:
+        if resp: # adding comment in vim
             return True
         return False
 
