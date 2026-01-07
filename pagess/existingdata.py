@@ -28,6 +28,23 @@ class ExistingPageClass:
         selected_month = st.selectbox("filter by month", month_options)
         return username, selected_month
 
+    def get_df_with_checkbox(self, combined_df):
+        edited_df = st.data_editor(
+                combined_df,
+                column_config={
+                    "Select": st.column_config.CheckboxColumn(
+                        "Select",
+                        help="Select this row",
+                        default=False,
+                    )
+                },
+                disabled=list(set(combined_df.columns) - {"Select"}),  # Disable editing for all columns except 'Select'
+                hide_index=True,
+                key="data_editor"
+        )
+        return edited_df
+
+
     def ShowExistingData(self):
         """
         Main controller function to display existing grocery data.
@@ -45,7 +62,20 @@ class ExistingPageClass:
         
         # 4. UI: Display Results
         if combined_df is not None and not combined_df.empty:
-            st.dataframe(combined_df)
+            # Add a boolean column for the checkbox
+            combined_df["Select"] = False
+            
+            # Display data with a checkbox column
+            edited_df = self.get_df_with_checkbox(combined_df)
+
+            # Check for selected rows
+            selected_rows = edited_df[edited_df["Select"]]
+            
+            if not selected_rows.empty:
+                # Extract and format the dates
+                selected_dates = selected_rows["date"].dt.strftime('%Y-%m-%d').tolist()
+                st.write("You selected:", selected_dates)
+                #get relevant collection from the database
         else:
             st.info("No data found for the selected criteria.")
     
