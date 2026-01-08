@@ -22,8 +22,8 @@ def process_grocery_data(json_list, selected_month):
         frame = pd.DataFrame.from_dict(doc)
         
         # Cleanup
-        if '_id' in frame.columns:
-            frame = frame.drop('_id', axis=1)
+        #if '_id' in frame.columns:
+        #    frame = frame.drop('_id', axis=1)
             
         # Date processing
         frame["date"] = pd.to_datetime(frame["date"], format='%Y-%m-%d')

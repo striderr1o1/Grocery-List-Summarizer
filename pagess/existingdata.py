@@ -29,6 +29,9 @@ class ExistingPageClass:
         return username, selected_month
 
     def get_df_with_checkbox(self, combined_df):
+
+        # Add a boolean column for the checkbox
+        combined_df["Select"] = False
         edited_df = st.data_editor(
                 combined_df,
                 column_config={
@@ -36,7 +39,9 @@ class ExistingPageClass:
                         "Select",
                         help="Select this row",
                         default=False,
-                    )
+                    ),
+                    "_id":None #to hide the column, later need
+                    # to get the id when checkbox clicked
                 },
                 disabled=list(set(combined_df.columns) - {"Select"}),  # Disable editing for all columns except 'Select'
                 hide_index=True,
@@ -62,8 +67,7 @@ class ExistingPageClass:
         
         # 4. UI: Display Results
         if combined_df is not None and not combined_df.empty:
-            # Add a boolean column for the checkbox
-            combined_df["Select"] = False
+            
             
             # Display data with a checkbox column
             edited_df = self.get_df_with_checkbox(combined_df)
@@ -80,3 +84,4 @@ class ExistingPageClass:
             st.info("No data found for the selected criteria.")
     
         return total
+# dont drop the ids, just hide them, later fetchh grocery data details based on ID

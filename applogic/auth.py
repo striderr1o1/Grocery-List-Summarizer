@@ -35,7 +35,7 @@ class authentication:
         # hash password
         hashed_password = self._hash_the_password(password)
         self.auth_database_connector.InsertUser(username, hashed_password)
-
+                   
 
     def check_user_exists(self, username):
         database = self.auth_database_connector.client2["authentication"]
