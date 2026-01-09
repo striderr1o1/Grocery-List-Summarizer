@@ -40,6 +40,8 @@ class Ingestion:
     classified_data = ""
     TotalSum = ""
     Json = {}
+    DetailedJson = {} #added detailed json to database but it 
+    # needs to be handled in other files also
     db = None
     def __init__(self, filename, username, dbase):
         self.filename = filename
@@ -50,6 +52,7 @@ class Ingestion:
         self.TotalSum = ""
         self.username = username
         self.db = dbase
+        self.DetailedJson = {}
         return
     
     def _ExtractFromImage(self):
@@ -87,7 +90,8 @@ class Ingestion:
     def extract(self):
         self._ExtractFromImage()
         self._CleanResponse()
-        return self.clean_list
+        self.convert_CleanList_to_Json()
+        return self.clean_list, self.DetailedJson
     
     def ClassifyData(self):
         CategorizedData = clientGroq.chat.completions.create(
@@ -140,6 +144,8 @@ class Ingestion:
     
     def StringToJson(self):
         self.Json = json.loads(self.classified_data)
+       # self.DetailedJson = json.loads(self.clean_list)
+       # self.Json["detailed_list"] = self.DetailedJson
         self._AddingDateTimeandTotalToJSON()
         return self.Json
 
@@ -148,3 +154,9 @@ class Ingestion:
             self.db.insert_json(self.Json, self.username)
         else:
             print("None obj, save_to_db in ingestion.py")
+    def convert_CleanList_to_Json(self):
+        for i in range(0,len(self.clean_list)):
+            self.DetailedJson[f"{i}"] = self.clean_list[i]
+        
+#convert clean list to dictionary and then to json, then send
+# it to the database
