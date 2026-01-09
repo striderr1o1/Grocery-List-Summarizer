@@ -3,6 +3,7 @@ from pymongo.server_api import ServerApi
 from pymongo.errors import PyMongoError, ConnectionFailure
 from dotenv import load_dotenv
 import os
+from bson.objectid import ObjectId
 
 
 class MongoDBConnector:
@@ -94,14 +95,18 @@ class MongoDBConnector:
         return self.authDatabase
 
     def get_detailedList_from_id(self, objectID):
-        from bson.objectid import ObjectId
         coll = self.fetch_collection(self.username)
+        # 1. Convert string ID to ObjectId if needed
         if isinstance(objectID, str):
             try:
                 objectID = ObjectId(objectID)
             except Exception:
-                pass
+                pass # If it fails, we try searching with the string as is
+
+        # 2. Use find_one() instead of find()
         relevant_json = coll.find_one({"_id": objectID})
+        
+        # 3. Add safety check
         if relevant_json:
             return relevant_json.get("detailed_list")
         return "No details found."
