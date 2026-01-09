@@ -154,6 +154,7 @@ class Ingestion:
         else:
             print("None obj, save_to_db in ingestion.py")
     def convert_CleanList_to_Json(self):
+        # it is a list of jsons
         for i in range(0,len(self.clean_list)):
             self.DetailedJson[f"{i}"] = self.clean_list[i]
         
