@@ -16,6 +16,7 @@ class MongoDBConnector:
         self.database = None
         self.authDatabase = None
         self._connect()
+        self.username = ""
 
     def _connect(self):
         try:
@@ -65,6 +66,7 @@ class MongoDBConnector:
         
 
     def fetch_collection(self, username):
+        self.username = username
         collection = self._GetCollection(username)
         return collection
     
@@ -90,3 +92,18 @@ class MongoDBConnector:
     def getAuthenticationDatabase(self):
         self.connectToAuthDatabase()
         return self.authDatabase
+
+    def get_detailedList_from_id(self, objectID):
+        from bson.objectid import ObjectId
+        coll = self.fetch_collection(self.username)
+        if isinstance(objectID, str):
+            try:
+                objectID = ObjectId(objectID)
+            except Exception:
+                pass
+        relevant_json = coll.find_one({"_id": objectID})
+        if relevant_json:
+            return relevant_json.get("detailed_list")
+        return "No details found."
+
+        

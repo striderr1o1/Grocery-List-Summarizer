@@ -131,7 +131,7 @@ class Ingestion:
     def _GetTotal(self):
         sum = 0
         for key in self.Json:
-            if key != "date":#print all the keys that are not date, add the sum to find total
+            if key != "date" and key != "detailed_list":#print all the keys that are not date, add the sum to find total
                 sum = sum + self.Json[key]["sum"]
                 print(self.Json[key]["sum"])
         self.TotalSum = sum
@@ -144,8 +144,7 @@ class Ingestion:
     
     def StringToJson(self):
         self.Json = json.loads(self.classified_data)
-       # self.DetailedJson = json.loads(self.clean_list)
-       # self.Json["detailed_list"] = self.DetailedJson
+        self.Json["detailed_list"] = self.DetailedJson
         self._AddingDateTimeandTotalToJSON()
         return self.Json
 

@@ -24,7 +24,7 @@ class ListProcessingPage:
         NameOfImage = "image.jpeg"
         self.ingestionObj = Ingestion(NameOfImage, self.username, self.db_connector)
         cleaned, JSON = self.ingestionObj.extract()
-        st.write(JSON)
+        #st.write(JSON)
         df = self._converting_json_to_df(cleaned)
         st.subheader("Cleaned Data:")
         st.dataframe(df)

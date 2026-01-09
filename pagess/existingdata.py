@@ -3,7 +3,7 @@ from applogic.mongoDB_conn import MongoDBConnector
 from applogic.processor import process_grocery_data
 from dotenv import load_dotenv
 import os
-
+import pandas as pd
 load_dotenv()
 
 # Instantiate connector globally or inside the function.
@@ -48,7 +48,9 @@ class ExistingPageClass:
                 key="data_editor"
         )
         return edited_df
-
+    def converting_json_to_df(self, Json):
+        json_df = pd.DataFrame.from_dict(Json)
+        return json_df
 
     def ShowExistingData(self):
         """
@@ -76,9 +78,13 @@ class ExistingPageClass:
             selected_rows = edited_df[edited_df["Select"]]
             
             if not selected_rows.empty:
-                # Extract and format the dates
-                selected_dates = selected_rows["date"].dt.strftime('%Y-%m-%d').tolist()
-                st.write("You selected:", selected_dates)
+                # Iterate through selected rows
+                for index, row in selected_rows.iterrows():
+                    ID = row["_id"]
+                    detailed_list_json = self.mdb_connector.get_detailedList_from_id(ID)
+                    dataframe_of_list = self.converting_json_to_df(detailed_list_json)
+                    st.write(f"Details for ID {ID}:")
+                    st.dataframe(dataframe_of_list)
                 #get relevant collection from the database
         else:
             st.info("No data found for the selected criteria.")
