@@ -27,4 +27,7 @@ elif page == "Data":
     st.title("Existing Data")
     existingpage = ExistingPageClass(database_connector, st.session_state.user["username"])
     total = existingpage.ShowExistingData()
-    st.write("Approximate Total: ", total)
+    st.write("Approximate Total: ", total)  
+    
+
+
