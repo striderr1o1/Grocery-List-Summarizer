@@ -66,7 +66,15 @@ class Ingestion:
                 mime_type='image/jpeg',
               ),
               """Extract the information from this. Alway give information in the form of table. Dont give any other information other than the table.
-              Dont extract any other information like contact, address and other irrelevant information. You are to extract only the list items."""
+              Dont extract any other information like contact, address and other irrelevant information. You are to extract only the list items.
+              Always give data in this format:
+              | Product Name                           | Qty  | Price | Total |
+              | :------------------------------------- | :--- | :---- | :---- |
+              | Arfa Chat Masala 100 GM                | 2.00 | 90    | 180   |
+              | Arfa Corriander Powder 200 GM          | 1.00 | 140   | 140   |
+              | Arfa Corriander Whole 100 GM           | 1.00 | 70    | 70    |
+              | Arfa Fresh Plum Irani 200 GM           | 1.00 | 210   | 210   |
+              """
             ]
         )
         self.extractedText = response.text
@@ -86,6 +94,8 @@ class Ingestion:
                 "Total": total.strip() if total else None,
             })
         self.clean_list = items
+        print(items)
+    
         
     def extract(self):
         self._ExtractFromImage()
