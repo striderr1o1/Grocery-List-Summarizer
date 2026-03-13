@@ -69,8 +69,8 @@ class Ingestion:
               Do not extract contact, address, or any irrelevant information. Extract only the list items.
               Always return data in exactly this format:
               [
-                {"Product": "Arfa Chat Masala 100 GM", "Qty": "2.00", "Price": "90", "Total": "180"},
-                {"Product": "Arfa Corriander Powder 200 GM", "Qty": "1.00", "Price": "140", "Total": "140"}
+                {"Product": "Arfa Chat Masala 100 GM", "Qty": "2.00", "Price": "90", "sum": "180"},
+                {"Product": "Arfa Corriander Powder 200 GM", "Qty": "1.00", "Price": "140", "sum": "140"}
               ]
               no anyother word other than the json list should be outputted.
               """
