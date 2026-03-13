@@ -65,36 +65,27 @@ class Ingestion:
                 data=image_bytes,
                 mime_type='image/jpeg',
               ),
-              """Extract the information from this. Alway give information in the form of table. Dont give any other information other than the table.
-              Dont extract any other information like contact, address and other irrelevant information. You are to extract only the list items.
-              Always give data in this format:
-              | Product Name                           | Qty  | Price | Total |
-              | :------------------------------------- | :--- | :---- | :---- |
-              | Arfa Chat Masala 100 GM                | 2.00 | 90    | 180   |
-              | Arfa Corriander Powder 200 GM          | 1.00 | 140   | 140   |
-              | Arfa Corriander Whole 100 GM           | 1.00 | 70    | 70    |
-              | Arfa Fresh Plum Irani 200 GM           | 1.00 | 210   | 210   |
+              """Extract the grocery list items from this image. Return ONLY a JSON array, no other text.
+              Do not extract contact, address, or any irrelevant information. Extract only the list items.
+              Always return data in exactly this format:
+              [
+                {"Product": "Arfa Chat Masala 100 GM", "Qty": "2.00", "Price": "90", "Total": "180"},
+                {"Product": "Arfa Corriander Powder 200 GM", "Qty": "1.00", "Price": "140", "Total": "140"}
+              ]
+              no anyother word other than the json list should be outputted.
               """
             ]
         )
         self.extractedText = response.text
-        
+        print(self.extractedText) 
     def _CleanResponse(self):
-        pattern = r"\|\s*(.*?)\s*\|\s*([\d.]*)\s*\|\s*([\d,]*)\s*\|\s*([\d,.]*)\s*\|"
-     
-        matches = re.findall(pattern, self.extractedText)
-        
-        # Clean results
-        items = []
-        for product, qty, price, total in matches:
-            items.append({
-                "Product": product.strip(),
-                "Qty": qty.strip() if qty else None,
-                "Price": price.strip() if price else None,
-                "Total": total.strip() if total else None,
-            })
-        self.clean_list = items
-        print(items)
+        text = self.extractedText.strip()
+        if text.startswith("```"):
+            text = text.split("```")[1]
+            if text.startswith("json"):
+                text = text[4:]
+        self.clean_list = json.loads(text.strip())
+        print(self.clean_list)
     
         
     def extract(self):
